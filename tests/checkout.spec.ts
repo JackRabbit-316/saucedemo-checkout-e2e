@@ -52,6 +52,9 @@ test.describe('SauceDemo checkout — standard_user', () => {
     await checkoutPage.finish();
     await checkoutPage.expectOrderComplete();
 
+    // PDF receipt affordance is exposed on the order-complete page after a real order.
+    await checkoutPage.expectPdfReceiptAffordanceVisible();
+
     // Post-condition: cart is emptied after successful order
     await page.goto('/inventory.html');
     await expect(page.locator('[data-test="shopping-cart-badge"]')).toHaveCount(0);

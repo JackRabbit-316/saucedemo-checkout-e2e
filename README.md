@@ -6,7 +6,7 @@ Playwright test for the SauceDemo checkout flow. Written for the TenTwenty QA as
 
 Runs three tests:
 
-1. Full checkout with two products (Sauce Labs Backpack and Sauce Labs Fleece Jacket) as the standard user. Checks the cart badge, cart items, order math, success page, and that the cart is empty after the order.
+1. Full checkout with two products (Sauce Labs Backpack and Sauce Labs Fleece Jacket) as the standard user. Checks the cart badge, cart items, order math, success page, that the PDF receipt affordance is present on the order-complete page, and that the cart is empty after the order.
 2. Login rejection with wrong password. Checks the error message.
 3. A skipped defect reproduction test that sets the session cookie by hand to prove the auth bypass. Off by default. Turn on with an environment variable.
 

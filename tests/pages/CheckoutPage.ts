@@ -9,6 +9,7 @@ export class CheckoutPage {
   readonly finishButton: Locator;
   readonly errorMessage: Locator;
   readonly completeHeader: Locator;
+  readonly generatePdfButton: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -19,6 +20,7 @@ export class CheckoutPage {
     this.finishButton = page.locator('[data-test="finish"]');
     this.errorMessage = page.locator('[data-test="error"]');
     this.completeHeader = page.locator('[data-test="complete-header"]');
+    this.generatePdfButton = page.locator('#generate-pdf-order');
   }
 
   async fillCustomerInfo(firstName: string, lastName: string, postalCode: string) {
@@ -53,5 +55,14 @@ export class CheckoutPage {
   async expectOrderComplete() {
     await expect(this.page).toHaveURL(/\/checkout-complete\.html/);
     await expect(this.completeHeader).toHaveText(/Thank you for your order/i);
+  }
+
+  async expectPdfReceiptAffordanceVisible() {
+    // The order confirmation page exposes a "Generate PDF order" button.
+    // We assert the affordance is present after a real order, without
+    // triggering the download itself. Download verification is intentionally
+    // out of scope here to keep the run fast and headless-friendly.
+    await expect(this.generatePdfButton).toBeVisible();
+    await expect(this.generatePdfButton).toHaveText(/Generate PDF order/i);
   }
 }
